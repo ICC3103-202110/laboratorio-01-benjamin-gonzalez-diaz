@@ -1,19 +1,21 @@
 # imports
 import  random
 from random import randint
-from random import shuffle
+
 
 # variables
-y = 20
+y = 1
 LH = [] # lista horizontal
 L = []
 T = []
+LI = []
 
 #funciones y definiciones
 def election():
-    election = float(input("seleccion una coordenada (por ejemplo: 5.6): "))
+    election = float(input("seleccione una coordenada (por ejemplo: 5.6): "))
     print(election)
-    return ''
+    return ""
+
 
 def CreateTable(numCard):
     for i in range(numCard):
@@ -36,6 +38,16 @@ def horizontal(count):
         LH.append(x)
     print(LH)
 
+
+def RandomCards(numcard):
+    y = 1
+    for m in range(numcard):
+        LI.append(y)
+        LI.append(y)
+        y += 1
+    random.shuffle(LI)
+    print(LI)
+
 # seleccion de cantidad de cartas
 card = int(input("elija la cantidad de cartas: "))
 cards = card * 2
@@ -47,8 +59,9 @@ player1 = 0
 player2 = 0
 
 # azar
-ran = random.randint(0,cards)
-ran1 = random.randint(0,cards)
+RandomCards(card)
+
+#luego se deberan poner en un tablero 
 
 # imprimir tablero
 
