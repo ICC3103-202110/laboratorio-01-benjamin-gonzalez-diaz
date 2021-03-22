@@ -1,7 +1,13 @@
 # imports
 import  random
 from random import randint
+from random import shuffle
 
+# variables
+y = 20
+LH = [] # lista horizontal
+L = []
+T = []
 
 #funciones y definiciones
 def election():
@@ -9,9 +15,31 @@ def election():
     print(election)
     return ''
 
+def CreateTable(numCard):
+    for i in range(numCard):
+        LINE = []
+        for j in range(numCard):
+            LINE.append("*")
+        T.append(LINE)
+
+
+def  ShowTable():
+    for i in T:
+        for j in i:
+            print( j, end= " ")
+        print()
+    print('')
+
+
+def horizontal(count):
+    for x in range(count):
+        LH.append(x)
+    print(LH)
+
 # seleccion de cantidad de cartas
 card = int(input("elija la cantidad de cartas: "))
 cards = card * 2
+count = cards
 print("cantidad de cartas: ",cards)
 
 # jugadores
@@ -22,17 +50,12 @@ player2 = 0
 ran = random.randint(0,cards)
 ran1 = random.randint(0,cards)
 
-# Creacion de la matriz, L = listas
-y = 20
-Lx = []
-Ly = []
-L = []
-z = ('   1| 2| 3| 4| 5')
-print(z)
-for i in range(1):
-    for j in range(5):
-        L.append(ran)
-    print(i+1, (L))
+# imprimir tablero
+
+
+horizontal(count)
+CreateTable(cards)
+ShowTable()
 
 
 
