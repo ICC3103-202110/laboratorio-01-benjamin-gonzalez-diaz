@@ -1,20 +1,24 @@
 # imports
-import  random
+import  random, sys
 from random import randint
+#import numpy
 
 
 # variables
 y = 1
+NumberOfCardsRemaining = 1
 LH = [] # lista horizontal
 L = []
 T = []
 LI = []
 
 #funciones y definiciones
-def election():
-    election = float(input("seleccione una coordenada (por ejemplo: 5.6): "))
-    print(election)
-    return ""
+def election(l):
+    print("elija la ",l,"° carta, seleccione las coordenadas")
+    electionX = int(input("seleccione la coordenada x: "))
+    electionY = int(input("seleccione la coordenada y: "))
+    elections = (electionX,electionY)
+    return elections
 
 
 def CreateTable(numCard):
@@ -48,9 +52,19 @@ def RandomCards(numcard):
     random.shuffle(LI)
     print(LI)
 
+def allCards(C1,C2):
+    z = 0
+    z = C1 - C2
+    return z
+
+def orderplayer():
+    print("jugador: empieza")    
+    print(election(1))
+    print(election(2))
 # seleccion de cantidad de cartas
 card = int(input("elija la cantidad de cartas: "))
 cards = card * 2
+
 count = cards
 print("cantidad de cartas: ",cards)
 
@@ -63,21 +77,21 @@ RandomCards(card)
 
 #luego se deberan poner en un tablero 
 
-# imprimir tablero
-
-
-horizontal(count)
-CreateTable(cards)
-ShowTable()
-
-
-
 #juego
-#while (True)
-print("jugador1: empieza")
-
-print(election())
-
+# # imprimir tablero
+horizontal(card)
+CreateTable(card)
+ShowTable()
+print("jugador 1 empieza")
+while (NumberOfCardsRemaining <= card):
+    k = election(1)
+    k1 = election(2)
+    print (k, k1)
+    if(k[0] == k1[0] and k[1] == k1[1]):    # por mientras
+        NumberOfCardsRemaining +=  card
+        player1 += 1
+        print("puntaje:",NumberOfCardsRemaining)
+    
 #puntajes y ganador
 
 if (player1 > player2):
