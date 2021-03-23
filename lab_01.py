@@ -60,7 +60,7 @@ def CreatedTable(List,Line,MyHeaders):
         p += 1
         b += 1
         d += 10
-    print(tabulate(Roster,headers=MyHeaders))
+    print(tabulate(Roster,headers=MyHeaders,tablefmt='fancy_grid'))
 
 def PlayerPhase(P):
     print("jugador: ",P,"empieza")
@@ -146,6 +146,9 @@ print('\n')
 #juego
 
 play = PlayerPhase(1)
+if(play == True,True):
+    player1 += 1
+    print('puntaje del jugador1: ', player1)
 while Game != finish:
     if(play == (True,True)):
         player1 += 1
