@@ -3,14 +3,12 @@ import  random, sys
 from random import shuffle
 from tabulate import tabulate
 
-
 # variables
 y = 1
 NumberOfCardsRemaining = 1
 L = []
 T = []
 MyHeaders =['','0','1','2','3','4','5','6','7','8','9']
-
 
 #funciones y definiciones
 def election(l):
@@ -24,13 +22,14 @@ def election(l):
 
 
 def GameTable(numcard, opt):
-    if (opt == 1): #CensureTable(numcard)
+    if (opt == 1): 
+        rand = random.randint(0,3)
         LCT = []
         for h in range(numcard):
             LCT.append('?')
             LCT.append('?')
         return LCT
-    elif (opt == 2): #RandomCards(numcard)
+    elif (opt == 2): 
         y = 1
         LI = []
         for m in range(numcard):
@@ -39,7 +38,7 @@ def GameTable(numcard, opt):
             y += 1
         shuffle(LI)
         return(LI)
-    elif (opt == 3): #ClearTable(numCard)
+    elif (opt == 3): 
         Clear = []
         for C in range(numcard):
             Clear.append('_')
@@ -62,8 +61,6 @@ def CreatedTable(List,Line,MyHeaders):
         d += 10
     print(tabulate(Roster,headers=MyHeaders))
 
-
-
 def PlayerPhase(P):
     print("jugador: ",P,"empieza")
     CreatedTable(Game,rows,MyHeaders)
@@ -74,23 +71,44 @@ def PlayerPhase(P):
     Game[Xe] = Mace[Xe]
     CreatedTable(Game,rows,MyHeaders)
     if (Mace[Ex] == Mace[Xe] and P == 1):
-        Game[Xe] = ('_')
-        Game[Ex] = ('_')
-        print("Ganaste, toma las cartas y ganas un punto")
+        Game[Ex] = '_'
+        Game[Xe] = '_'
+        print("Ganaste, jugador:",P," , toma las cartas, ganas un punto y sigues")
         return (True,True)
-    #elif (Mace[Ex] == Mace[Xe])
 
+    elif (Mace[Ex] == Mace[Xe] and P == 2):
+        Game[Ex] = '_'
+        Game[Xe] = '_'
+        print("Ganaste, jugador:",P," , toma las cartas, ganas un punto y sigues")
+        return (False,False)
 
+    elif (Mace[Ex] != Mace[Xe] and P == 2):
+        Game[Ex] = '?'
+        Game[Xe] = '?'
+        print("perdiste, jugador ",P," , pasa el siguiente jugador")
+        return (False,True)
 
+    elif (Mace[Ex] != Mace[Xe] and P == 1):
+        Game[Ex] = '?'
+        Game[Xe] = '?'
+        print("perdiste, jugador ",P," , pasa el siguiente jugador")
+        return (True, False)
+
+print('\n')
+# jugadores
+player1 = 0
+player2 = 0
+
+print('\n')
 # seleccion de cantidad de cartas
 card = int(input("elija la cantidad de cartas: "))
 cards = card * 2
 count = cards
 rows = 0
 
-Mace = GameTable(cards,2)
-finish = GameTable(cards,3)
-Game = GameTable(cards,1)
+Mace = GameTable(card,2)
+finish = GameTable(card,3)
+Game = GameTable(card,1)
 if(cards >= 10):
     rows = int(cards/10)
     if( rows != (cards%10 == 0)):
@@ -98,21 +116,14 @@ if(cards >= 10):
     print('se han generado: ',rows,'filas')
 else:
     rows += 1
+#print('se han generado: ',len(MyHeaders)-1,'columnas [del 0 al 9]')
 print("cantidad de cartas: ",cards)
-
-# jugadores
-player1 = 0
-player2 = 0
-
+print('\n')
 #juego
 
-count = 3
-while (count < 10):
-    if (count%2 != 0 ):
-        PlayerPhase(1)
-    else:
-        print("algo")
+PlayerPhase(1)
 
+print('\n')
 #puntajes y ganador
 
 print('Resolucion del puntaje')
