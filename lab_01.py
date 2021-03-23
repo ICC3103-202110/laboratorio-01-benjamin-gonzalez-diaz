@@ -5,7 +5,8 @@ from tabulate import tabulate
 
 # variables
 y = 1
-NumberOfCardsRemaining = 1
+NumberOfCardsRemaining = 0
+parity = 3
 L = []
 T = []
 MyHeaders =['','0','1','2','3','4','5','6','7','8','9']
@@ -21,15 +22,15 @@ def election(l):
     return elections
 
 
-def GameTable(numcard, opt):
-    if (opt == 1): 
+def GameTable(numcard, options):
+    if (options == 1): 
         rand = random.randint(0,3)
         LCT = []
         for h in range(numcard):
             LCT.append('?')
             LCT.append('?')
         return LCT
-    elif (opt == 2): 
+    elif (options == 2): 
         y = 1
         LI = []
         for m in range(numcard):
@@ -38,11 +39,11 @@ def GameTable(numcard, opt):
             y += 1
         shuffle(LI)
         return(LI)
-    elif (opt == 3): 
+    elif (options == 3): 
         Clear = []
         for C in range(numcard):
-            Clear.append('_')
-            Clear.append('_')
+            Clear.append('')
+            Clear.append('')
         return Clear
 
 def CreatedTable(List,Line,MyHeaders):
@@ -65,20 +66,41 @@ def PlayerPhase(P):
     print("jugador: ",P,"empieza")
     CreatedTable(Game,rows,MyHeaders)
     Ex = election(1)
-    Game[Ex] = Mace[Ex]
+    while(True):
+        try:
+            Game[Ex] = Mace[Ex]
+            break
+        except:
+            print('no existe el numero en la tabla')
+            print('intentelo otra vez')
+            print('\n')
+            CreatedTable(Game,rows,MyHeaders)
+            print('\n')
+            Ex = election(1)
     CreatedTable(Game,rows,MyHeaders)
     Xe = election(2)
-    Game[Xe] = Mace[Xe]
+    while(True):
+        try:
+            Game[Xe] = Mace[Xe]
+            break
+        except:
+            print('no existe el numero en la tabla')
+            print('intentelo otra vez')
+            print('\n')
+            CreatedTable(Game,rows,MyHeaders)
+            print('\n')
+            Xe = election(2)
     CreatedTable(Game,rows,MyHeaders)
+
     if (Mace[Ex] == Mace[Xe] and P == 1):
-        Game[Ex] = '_'
-        Game[Xe] = '_'
+        Game[Ex] = ''
+        Game[Xe] = ''
         print("Ganaste, jugador:",P," , toma las cartas, ganas un punto y sigues")
         return (True,True)
 
     elif (Mace[Ex] == Mace[Xe] and P == 2):
-        Game[Ex] = '_'
-        Game[Xe] = '_'
+        Game[Ex] = ''
+        Game[Xe] = ''
         print("Ganaste, jugador:",P," , toma las cartas, ganas un punto y sigues")
         return (False,False)
 
@@ -92,7 +114,7 @@ def PlayerPhase(P):
         Game[Ex] = '?'
         Game[Xe] = '?'
         print("perdiste, jugador ",P," , pasa el siguiente jugador")
-        return (True, False)
+        return (True,False)
 
 print('\n')
 # jugadores
@@ -100,7 +122,8 @@ player1 = 0
 player2 = 0
 
 print('\n')
-# seleccion de cantidad de cartas
+
+# seleccion de cantidad de cartas y otros
 card = int(input("elija la cantidad de cartas: "))
 cards = card * 2
 count = cards
@@ -116,13 +139,28 @@ if(cards >= 10):
     print('se han generado: ',rows,'filas')
 else:
     rows += 1
+
 #print('se han generado: ',len(MyHeaders)-1,'columnas [del 0 al 9]')
 print("cantidad de cartas: ",cards)
 print('\n')
 #juego
 
-PlayerPhase(1)
-
+play = PlayerPhase(1)
+while Game != finish:
+    if(play == (True,True)):
+        player1 += 1
+        print('puntaje del jugador1: ', player1)
+        play = PlayerPhase(1)
+    elif (play == (False,False)):
+        player2 += 1
+        print('puntaje del jugador2: ', player2)
+        play = PlayerPhase(2)
+    elif (play == (True,False)):
+        print('puntaje del jugador2: ', player2)
+        play = PlayerPhase(1)
+    elif (play == (False,True)):
+        print('puntaje del jugador1: ', player1)
+        play = PlayerPhase(1)
 print('\n')
 #puntajes y ganador
 
