@@ -2,6 +2,7 @@
 import  random, sys
 from random import shuffle
 from tabulate import tabulate
+from typing import Tuple
 
 # variables
 y = 1
@@ -10,6 +11,13 @@ parity = 3
 L = []
 T = []
 MyHeaders =['','0','1','2','3','4','5','6','7','8','9']
+
+class PLAYERS_TURNS:
+    P1_P_P1_N = (True,True) 
+    P1_P_P2_N = (True,False)
+    P2_P_P2_N = (False,False)
+    P2_P_P1_N = (False,True)
+
 
 #funciones y definiciones
 def election(l):
@@ -62,8 +70,8 @@ def CreatedTable(List,Line,MyHeaders):
         d += 10
     print(tabulate(Roster,headers=MyHeaders,tablefmt='fancy_grid'))
 
-def PlayerPhase(P):
-    print("jugador: ",P,"empieza")
+def PlayerPhase(P) -> Tuple[bool,bool]:
+    print("jugador: ",P)
     CreatedTable(Game,rows,MyHeaders)
     Ex = election(1)
     while(True):
@@ -71,7 +79,7 @@ def PlayerPhase(P):
             Game[Ex] = Mace[Ex]
             break
         except:
-            print('no existe el numero en la tabla')
+            print('no existe el número en la tabla')
             print('intentelo otra vez')
             print('\n')
             CreatedTable(Game,rows,MyHeaders)
@@ -92,31 +100,18 @@ def PlayerPhase(P):
             Xe = election(2)
     CreatedTable(Game,rows,MyHeaders)
 
-    if (Mace[Ex] == Mace[Xe] and P == 1):
+    if (Mace[Ex] == Mace[Xe]):
         Game[Ex] = ''
         Game[Xe] = ''
         print("Ganaste, jugador:",P," , toma las cartas, ganas un punto y sigues")
-        return (True,True)
-
-    elif (Mace[Ex] == Mace[Xe] and P == 2):
-        Game[Ex] = ''
-        Game[Xe] = ''
-        print("Ganaste, jugador:",P," , toma las cartas, ganas un punto y sigues")
-        return (False,False)
-
-    elif (Mace[Ex] != Mace[Xe] and P == 2):
-        Game[Ex] = '?'
-        Game[Xe] = '?'
-        print("perdiste, jugador ",P," , pasa el siguiente jugador")
-        return (False,True)
-
-    elif (Mace[Ex] != Mace[Xe] and P == 1):
-        Game[Ex] = '?'
-        Game[Xe] = '?'
-        print("perdiste, jugador ",P," , pasa el siguiente jugador")
-        return (True,False)
+        return PLAYERS_TURNS.P1_P_P1_N if P == 1 else PLAYERS_TURNS.P2_P_P2_N
+    Game[Ex] = '?'
+    Game[Xe] = '?'
+    print("perdiste, jugador ",P," , pasa el siguiente jugador")
+    return PLAYERS_TURNS.P1_P_P2_N if P == 1 else PLAYERS_TURNS.P2_P_P1_N
 
 print('\n')
+
 # jugadores
 player1 = 0
 player2 = 0
@@ -141,12 +136,12 @@ else:
     rows += 1
 
 #print('se han generado: ',len(MyHeaders)-1,'columnas [del 0 al 9]')
-print("cantidad de cartas: ",cards)
+print('cantidad de cartas: ,cards')
 print('\n')
 #juego
 
 play = PlayerPhase(1)
-if(play == True,True):
+if(play == PLAYERS_TURNS.P1_P_P1_N):
     player1 += 1
     print('puntaje del jugador1: ', player1)
 while Game != finish:
@@ -160,7 +155,7 @@ while Game != finish:
         play = PlayerPhase(2)
     elif (play == (True,False)):
         print('puntaje del jugador2: ', player2)
-        play = PlayerPhase(1)
+        play = PlayerPhase(2)
     elif (play == (False,True)):
         print('puntaje del jugador1: ', player1)
         play = PlayerPhase(1)
