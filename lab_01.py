@@ -120,7 +120,7 @@ def PlayerPhase(P) -> Tuple[bool,bool]:
     return PLAYERS_TURNS.P1_P_P2_N if P == 1 else PLAYERS_TURNS.P2_P_P1_N
 
 print('\n')
-
+#--------------------------------***--------------------------------------------------
 # jugadores
 Score1 = 0
 Score2 = 0
@@ -131,6 +131,16 @@ print('\n')
 # seleccion de cantidad de cartas y otros
 card = int(input('elija la cantidad de cartas: \n'
 '(choose the number of cards): '))
+while (True):
+    if (card < 1):
+        print('elija una cantidad mayor a 0\n'
+        '(choose a quantity greater than 0)\n')
+        card = int(input('elija la cantidad de cartas: \n'
+        '(choose the number of cards): '))
+    else:
+        break
+    
+
 cards = card * 2
 rows = 0
 
@@ -146,7 +156,7 @@ if(cards >= 10):
 else:
     rows += 1
 
-#print('se han generado: ',len(MyHeaders)-1,'columnas [del 0 al 9]')
+
 print('cantidad de cartas: ',cards,'\n'
 '(number of cards:', cards,')')
 print('\n')
@@ -182,20 +192,22 @@ print('\n')
 print('Resolucion del puntaje\n'
 'Score resolution')
 if (Score1 > Score2):
-    print("ganador: Jugador 1")
+    print("GANADOR: --> Jugador 1 <-- \n"
+    '(WINNER: --> Player 1 <--)')
     print('puntaje jugador1: ',Score1,'\n'
     '(player1 score:', Score1,')')
     print('puntaje jugador2: ',Score2,'\n'
     '(player 2 score:', Score2,')')
 elif (Score1 < Score2):
-    print("ganador: jugador 2")
+    print("GANADOR: -->jugador 2 <--\n"
+    '(WINNER: --> Player 2 <--)')
     print('puntaje jugador1: ',Score1,'\n'
     '(player1 score:', Score1,')')
     print('puntaje jugador2: ',Score2,'\n'
     '(player 2 score:', Score2,')')
 else:
-    print('empate\n'
-    'tie')
+    print('EMPATE\n'
+    'TIE')
     print('puntaje jugador1: ',Score1,'\n'
     '(player1 score:', Score1,')')
     print('puntaje jugador2: ',Score2,'\n'
