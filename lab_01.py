@@ -2,7 +2,7 @@
 #-------------------------------79---------------------------------------------
 # se asume que el jugador no va a volver a elegir las cartas que ya quito
 # cuando el usuario elige mas >6 cartas aparece una fila mas
-# a veces los puntajes salen mal puestos (cuanto se elige jugar con 3 cartas)
+# a veces los puntajes salen mal puestos generalmente con un punto menos
 # con 'locked' me refiero a que no podra seguir hasta que cumpla la condicion
 # imports
 
@@ -260,7 +260,7 @@ print('Resolucion del puntaje\n'
 'Score resolution')
 if (Score1 > Score2):
     if(card % 2 == 0):
-        Score1 += 0
+        Score1 += 1
     else:
         Score1 += 1
     print(
@@ -271,7 +271,7 @@ if (Score1 > Score2):
     '(player 2 score:', Score2,')')
 elif (Score1 < Score2):
     if (card % 2 == 0):
-        Score2 += 0
+        Score2 += 1
     else:
         Score2 += 1
     print(
@@ -284,6 +284,6 @@ else:
     print(
     'TIE\n')
     print(
-    '(player 1 score:', Score1,')')
+    '(player1 score:', Score1,')')
     print(
     '(player 2 score:', Score2,')')
